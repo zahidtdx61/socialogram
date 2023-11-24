@@ -18,3 +18,13 @@ module.exports.signIn = function (req, res) {
         title: 'Socialogram | Sign In'
     });
 }
+
+// get sign up data
+module.exports.create = function (req, res) {
+    // TO DO Later
+}
+
+// get sign in and a create a session
+module.exports.create = function (req, res) {
+    // TO DO Late
+}
