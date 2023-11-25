@@ -3,9 +3,21 @@ const User = require('../models/user');
 
 // render profile page
 module.exports.profile = function (req, res) {
-    return res.render('user_profile', {
-        title: 'Profile'
-    });
+    if (req.cookies.user_id) {
+        User.findById(req.cookies.user_id)
+            .then((user) => {
+                if (user) {
+                    return res.render('user_profile', {
+                        title: "User Profile",
+                        user: user
+                    });
+                } else {
+                    return res.redirect('/user/sign-in');
+                }
+            });
+    } else {
+        return res.redirect('/user/sign-in');
+    }
 }
 
 // render sign up page
@@ -52,28 +64,28 @@ module.exports.createSession = function (req, res) {
     // steps to authenticate
 
     // find the user
-    User.findOne({email: req.body.email})
-    .catch((err) => {
-        console.log('Something is wrong. Please try later.');
-        return;
-    })
-    .then((user) => {
-        // user handel not found
-        if(!user){
-            console.log('User not found !!!');
-            return res.redirect('back');
-        }else{
-            // user handel found
-            // now handel password
-            // handel when password doesn't match
-            if(user.password != req.body.password){
-                console.log('Password not matched');
+    User.findOne({ email: req.body.email })
+        .catch((err) => {
+            console.log('Something is wrong. Please try later.');
+            return;
+        })
+        .then((user) => {
+            // user handel not found
+            if (!user) {
+                console.log('User not found !!!');
                 return res.redirect('back');
-            }
-            // handel session creation
+            } else {
+                // user handel found
+                // now handel password
+                // handel when password doesn't match
+                if (user.password != req.body.password) {
+                    console.log('Password not matched');
+                    return res.redirect('back');
+                }
+                // handel session creation
 
-            res.cookie('user_id', user.id);
-            return res.redirect('/user/profile')
-        }
-    });
+                res.cookie('user_id', user.id);
+                return res.redirect('/user/profile')
+            }
+        });
 }
