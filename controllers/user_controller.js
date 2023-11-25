@@ -29,7 +29,7 @@ module.exports.create = function (req, res) {
     } else {
         User.findOne({ email: req.body.email })
             .catch((err) => {
-                if (err) { console.log('Error in user sign up. Please try later.'); return; }
+                console.log('Error in user sign up. Please try later.'); return;
             })
             .then((user) => {
                 if (!user) {
@@ -49,5 +49,31 @@ module.exports.create = function (req, res) {
 
 // get sign in and a create a session
 module.exports.createSession = function (req, res) {
-    // TO DO Late
+    // steps to authenticate
+
+    // find the user
+    User.findOne({email: req.body.email})
+    .catch((err) => {
+        console.log('Something is wrong. Please try later.');
+        return;
+    })
+    .then((user) => {
+        // user handel not found
+        if(!user){
+            console.log('User not found !!!');
+            return res.redirect('back');
+        }else{
+            // user handel found
+            // now handel password
+            // handel when password doesn't match
+            if(user.password != req.body.password){
+                console.log('Password not matched');
+                return res.redirect('back');
+            }
+            // handel session creation
+
+            res.cookie('user_id', user.id);
+            return res.redirect('/user/profile')
+        }
+    });
 }
