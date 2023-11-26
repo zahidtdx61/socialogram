@@ -5,6 +5,13 @@ const db = require('./config/mongoose');
 const port = 8000;
 const app = express();
 
+// used for session cookie
+const session = require('express-session');
+const passport = require('passport');
+const passportLocal = require('./config/passport-local-strategy');
+
+
+
 // define static folder
 app.use(express.static('./assets'));
 
@@ -23,6 +30,22 @@ app.use('/', require('./routes'));
 // adding veiw engine
 app.set('view engine', 'ejs');
 app.set('views', './views');
+
+// setting up session parameters
+app.use(session({
+    name: 'socialogram',
+    // change the secret before deployment in production mode
+    secret: 'nothingspecial',
+    saveUninitialized: false,
+    resave: false,
+    cookie: {
+        maxAge: (1000*60*100)
+    }
+}));
+
+// use passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.listen(port, function (err) {
     if (err) {
