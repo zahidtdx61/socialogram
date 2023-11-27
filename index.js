@@ -9,7 +9,7 @@ const app = express();
 const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
-
+const MongoStore = require('connect-mongo');
 
 
 // define static folder
@@ -37,7 +37,16 @@ app.use(session({
     resave: false,
     cookie: {
         maxAge: (1000*60*100)
-    }
+    },
+    store: MongoStore.create(
+        {
+            client: db.getClient(),
+            autoRemove: 'disabled'
+        },
+        function (err){
+            console.log(err || 'connect-mongo set up ok');
+        }
+    )
 }));
 
 // use passport
