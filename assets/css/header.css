@@ -1,0 +1,25 @@
+#layout-header nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 10px;
+  background-color: #0170ca;
+  box-shadow: 1px 1px 1px 1px lightgray; }
+
+#layout-header .mini-logo p {
+  margin: 5px;
+  font-size: 2rem;
+  font-weight: bold; }
+
+#layout-header .auth-links ul {
+  list-style: none;
+  margin: 5px;
+  display: flex;
+  align-items: center; }
+  #layout-header .auth-links ul li {
+    margin-right: 10px;
+    font-size: 1.4rem; }
+
+#layout-header a {
+  color: white;
+  text-decoration: none; }

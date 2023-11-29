@@ -1,25 +1,34 @@
-<header>
-    Page Header
-
-    <ul>
-        <% if (locals.user) { %>
-            <li>
-                <a href="/user/profile">
-                    <%= user.name %>
+<header id="layout-header">
+    <nav>
+        <div class="mini-logo">
+            <p>
+                <a href="/">
+                    Socialogram
                 </a>
-            </li>
-            <li>
-                <a href="/user/sign-out">Sign Out</a>
-            </li>
-        <% }else { %>
-            <li>
-                <a href="/user/sign-in">Sign IN</a>
-            </li>
+            </p>
+        </div>
 
-            <li>
-                <a href="/user/sign-up">Sign Up</a>
-            </li>
-        <% } %>
-    </ul>
-    
+        <div class="auth-links">
+            <ul>
+                <% if (locals.user) { %>
+                    <li>
+                        <a href="/user/profile">
+                            <%= user.name %>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/user/sign-out">Sign Out</a>
+                    </li>
+                <% }else { %>
+                    <li>
+                        <a href="/user/sign-in">Sign IN</a>
+                    </li>
+        
+                    <li>
+                        <a href="/user/sign-up">Sign Up</a>
+                    </li>
+                <% } %>
+            </>
+        </div>
+    </nav>  
 </header>
