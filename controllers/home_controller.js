@@ -4,7 +4,14 @@ module.exports.home = function (req, res) {
     // console.log(req.cookies);
     // res.cookie('user_id', 25);
 
-    Post.find({}).populate('user')
+    Post.find({})
+        .populate('user')
+        .populate({
+            path: 'comments',
+            populate: {
+                path: 'user'
+            }
+        })
         .then((posts) => {
             return res.render('home', {
                 title: 'Socialogram | Home',

@@ -4,7 +4,7 @@
     <% if(locals.user) { %>
         <h4>Post Something ...</h4>
         <form action="/posts/create" id="new-post-from" method="POST">
-            <textarea name="content" cols="30" rows="3" placeholder="Type here..."></textarea>
+            <textarea name="content" cols="30" rows="3" placeholder="Type here..." required></textarea>
             <input type="submit" value="post">
         </form>
     <% } %>
@@ -22,19 +22,39 @@
                         <%= post.content %>
                         <br>
                         <small>
-                            <%= post.user.name %>
+                            - <%= post.user.name %>
+                            <br>
+                            &nbsp ( posted at: <%= post.updatedAt %> )
                         </small>
                     </p>
 
                     <% if(locals.user) { %>
                         <div class="post-comment">
                             <form action="/comments/create" method="POST">
-                                <input type="text" name="content" placeholder="Type here to add your comment...">
+                                <input type="text" name="content" placeholder="Type here to add your comment..." required>
                                 <input type="hidden" name="post" value="<%= post._id %>">
                                 <input type="submit" value="Add comment">
                             </form>
                         </div>
                     <% } %>  
+
+                    <div id="post-comment-list-<%= post._id %>">
+                        <ul>
+                            <% for (comment of post.comments) { %>
+                                <li class="show-comment">
+                                    <p>
+                                        <%= comment.content %>
+                                        <br>
+                                        <small>
+                                            - <%= comment.user.name %>
+                                            <br>
+                                            &nbsp ( commented at: <%= comment.updatedAt %> )
+                                        </small>
+                                    </p>
+                                </li>
+                            <% } %>
+                        </ul>
+                    </div>
                 </li>
             <% } %>
         </ul>   
