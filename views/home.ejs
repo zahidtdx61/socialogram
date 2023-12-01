@@ -17,51 +17,7 @@
     <div id="post-list-container">
         <ul>
             <% for(post of posts) { %> 
-                <li>
-                    <p>
-                        <% if((locals.user) && (locals.user.id == post.user.id)) { %>
-                            <small>
-                                <a href="/posts/destroy/<%= post.id %>">X </a>
-                            </small>
-                        <% } %>
-                        
-                        <%= post.content %>
-                        <br>
-                        <small>
-                            - <%= post.user.name %>
-                            <br>
-                            &nbsp ( posted at: <%= post.updatedAt %> )
-                        </small>
-                    </p>
-
-                    <% if(locals.user) { %>
-                        <div class="post-comment">
-                            <form action="/comments/create" method="POST">
-                                <input type="text" name="content" placeholder="Type here to add your comment..." required>
-                                <input type="hidden" name="post" value="<%= post._id %>">
-                                <input type="submit" value="Add comment">
-                            </form>
-                        </div>
-                    <% } %>  
-
-                    <div id="post-comment-list-<%= post._id %>">
-                        <ul>
-                            <% for (comment of post.comments) { %>
-                                <li class="show-comment">
-                                    <p>
-                                        <%= comment.content %>
-                                        <br>
-                                        <small>
-                                            - <%= comment.user.name %>
-                                            <br>
-                                            &nbsp ( commented at: <%= comment.updatedAt %> )
-                                        </small>
-                                    </p>
-                                </li>
-                            <% } %>
-                        </ul>
-                    </div>
-                </li>
+                <%- include('_post_section') -%>
             <% } %>
         </ul>   
     </div>
