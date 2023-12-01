@@ -31,17 +31,7 @@
   <div id="post-comment-list-<%= post._id %>">
     <ul>
       <% for (comment of post.comments) { %>
-      <li class="show-comment">
-        <p>
-          <%= comment.content %>
-          <br />
-          <small>
-            - <%= comment.user.name %>
-            <br />
-            &nbsp ( commented at: <%= comment.updatedAt %> )
-          </small>
-        </p>
-      </li>
+            <%- include('_comment_section') -%>
       <% } %>
     </ul>
   </div>
