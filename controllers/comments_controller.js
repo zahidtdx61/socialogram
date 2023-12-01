@@ -31,3 +31,35 @@ module.exports.create = function (req, res) {
             }
         })
 }
+
+module.exports.destroy = function (req, res) {
+    Comment.findById(req.params.id)
+        .then((comment) => {
+            if (comment.user == req.user.id) {
+                let postId = comment.post;
+                Comment.findByIdAndDelete(req.params.id)
+                    .catch((err) => {
+                        console.log(`Something went wrong while deleting comment : ${err}`);
+                        return res.redirect('back');
+                    });
+
+                Post.findByIdAndUpdate(postId, { $pull: { comments: req.params.id } })
+                    .then(() => {
+                        return res.redirect('back');
+                    })
+                    .catch((err) => {
+                        console.log(`Something went wrong while pulling comment from post : ${err}`);
+                        return res.redirect('back');
+                    });
+            } else {
+                return res.redirect('back');
+            }
+
+        })
+        .catch((err) => {
+            console.log(`Something went wrong while deleting comment : ${err}`);
+            return res.redirect('back');
+        });
+}
+
+
