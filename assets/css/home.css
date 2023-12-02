@@ -1,14 +1,13 @@
 #home-container {
-  display: flex; }
+  display: flex;
+  margin: 1%; }
   #home-container p {
     text-align: justify; }
   #home-container #feed-post {
     width: 70%;
-    margin: 1%;
-    padding: 1%; }
+    padding: 1.5%; }
   #home-container #user_friends {
     width: 30%;
-    margin: 2%;
     padding: 1%;
     border-left: 1px solid lightblue;
     height: inherit; }

@@ -1,5 +1,6 @@
 #home-container {
     display: flex;
+    margin: 1%;
 
     p {
         text-align: justify;
@@ -7,13 +8,12 @@
 
     #feed-post {
         width: 70%;
-        margin: 1%;
-        padding: 1%;
+        padding: 1.5%;
     }
 
     #user_friends {
         width: 30%;
-        margin: 2%;
+        // margin: 1%;
         padding: 1%;
         border-left: 1px solid lightblue;
         height: inherit;
