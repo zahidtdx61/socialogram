@@ -1,0 +1,21 @@
+#home-container {
+    display: flex;
+
+    p {
+        text-align: justify;
+    }
+
+    #feed-post {
+        width: 70%;
+        margin: 1%;
+        padding: 1%;
+    }
+
+    #user_friends {
+        width: 30%;
+        margin: 2%;
+        padding: 1%;
+        border-left: 1px solid lightblue;
+        height: inherit;
+    }
+}

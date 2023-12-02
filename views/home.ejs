@@ -1,35 +1,21 @@
-<h1> <%= title %> </h1>
+<link rel="stylesheet" type="text/css" href="/css/home.css">
 
-<section id="feed-post">
-    <% if(locals.user) { %>
-        <h4>Post Something ...</h4>
-        <form action="/posts/create" id="new-post-from" method="POST">
-            <textarea name="content" cols="30" rows="3" placeholder="Type here..." required></textarea>
-            <input type="submit" value="post">
-        </form>
-    <% } %>
+<div id="home-container">
+    <section id="feed-post">
+        
+        <%- include('_create_post') -%>
     
-    <% if(!locals.user) { %>
-        <p>To post something you can <a href="/user/sign-up">sign up</a> to Socialogram. If you are an existed user then, please <a href="/user/sign-in">sign in</a> .</p>
-    <% } %>
-
-    <h4>Posts</h4>
-    <div id="post-list-container">
-        <ul>
-            <% for(post of posts) { %> 
-                <%- include('_post_section') -%>
-            <% } %>
-        </ul>   
-    </div>
-</section>
-
-<% if(locals.user) { %>
-    <section id="user_friends">
-        <h4>Friends</h4>
-        <% for (u of all_users) { %>
-            <p>
-                <a href="/user/profile/<%= u.id %>"> <%= u.name%> </a>
-            </p>
-        <% } %>
+        <h4>Posts</h4>
+        <div id="post-list-container">
+            <ul>
+                <% for(post of posts) { %> 
+                    <%- include('_post_section') -%>
+                <% } %>
+            </ul>   
+        </div>
     </section>
-<% } %>
+    
+    <section id="user_friends">
+        <%- include('_show_friends') -%>
+    </section>
+</div>

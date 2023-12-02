@@ -1,0 +1,11 @@
+<% if(locals.user) { %>
+    <h4>Post Something ...</h4>
+    <form action="/posts/create" id="new-post-from" method="POST">
+        <textarea name="content" cols="30" rows="3" placeholder="Type here..." required></textarea>
+        <input type="submit" value="post">
+    </form>
+<% } %>
+
+<% if(!locals.user) { %>
+    <p>To post something you can <a href="/user/sign-up">sign up</a> to Socialogram. If you are an existed user then, please <a href="/user/sign-in">sign in</a> .</p>
+<% } %>
