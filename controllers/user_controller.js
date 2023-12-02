@@ -70,6 +70,27 @@ module.exports.create = function (req, res) {
     }
 }
 
+// update user data
+module.exports.update = function (req, res) {
+    if(req.user.id == req.params.id){
+        User.findByIdAndUpdate(req.params.id, {
+            name: req.body.name,
+            email: req.body.email
+        })
+            .then((err) => {
+                return res.redirect('back');
+            })
+            .catch((err) => {
+                if(err){
+                    console.log(`Something went wrong during updating user : ${err}`);
+                    return res.redirect('back');
+                }
+            })
+    }else{
+        return res.status(401).send('Unauthorized');
+    }
+}
+
 // get sign in and a create a session
 module.exports.createSession = function (req, res) {
     return res.redirect('/');
