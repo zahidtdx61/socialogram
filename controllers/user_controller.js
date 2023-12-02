@@ -1,11 +1,26 @@
 //require db schema to use database
+const { use } = require('passport');
 const User = require('../models/user');
 
 // render profile page
 module.exports.profile = function (req, res) {
-    return res.render('user_profile', {
-        title: 'Profile'
-    });
+    let userId = req.params.id;
+    
+    if(!userId){
+        userId = req.user.id;
+    }
+    
+    User.findById(userId)
+        .then((user) => {
+            return res.render('user_profile', {
+                title: 'Profile',
+                userProfile: user
+            });
+        })
+        .catch((err) => {
+            console.log(`Something went wrong in user_profile : ${err}`);
+            return res.redirect('back');
+        });
 }
 
 // render sign up page
