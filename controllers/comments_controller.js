@@ -28,8 +28,9 @@ module.exports.create = async function (req, res) {
 module.exports.destroy = async function (req, res) {
     try {
         let comment = await Comment.findById(req.params.id);
+        let post = await Post.findById(comment.post);
 
-        if (comment.user == req.user.id) {
+        if ((req.user.id == comment.user) || (req.user.id == post.user)) {
             let postId = comment.post;
 
             await Comment.findByIdAndDelete(req.params.id);

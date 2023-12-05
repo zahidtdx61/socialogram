@@ -6,7 +6,7 @@ body {
     flex: 1;
     min-height: 100vh;
     margin: 0;
-    padding-top: 2.7rem; }
+    padding-top: 2.8rem; }
     @media (min-width: 439px) {
       body #layout-main {
         padding-top: 1.5rem; } }
