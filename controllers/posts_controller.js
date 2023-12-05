@@ -20,7 +20,7 @@ module.exports.destroy = async function (req, res) {
             await Comment.deleteMany({ post: req.params.id });
 
             return res.redirect('back');
-        }else{
+        } else {
             return res.redirect('back');
         }
     } catch (err) {

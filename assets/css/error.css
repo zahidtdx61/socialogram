@@ -1,0 +1,8 @@
+#invalid-msg {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  font-size: 60px;
+  min-height: inherit; }

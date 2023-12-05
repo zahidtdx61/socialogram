@@ -3,30 +3,25 @@ const { use } = require('passport');
 const User = require('../models/user');
 
 // render profile page
-module.exports.profile = function (req, res) {
-    let userId = req.params.id;
-    
-    if(!userId){
-        userId = req.user.id;
+module.exports.profile = async function (req, res) {
+    try {
+        let userId = req.params.id;
+        let user = await  User.findById(userId);
+
+        return res.render('user_profile', {
+            title: 'Profile',
+            userProfile: user
+        });  
+    } catch (err) {
+        console.log(`Error : ${err}`);
+        return res.status(404).render('404_not_found', {title: 'Not Found'});
     }
-    
-    User.findById(userId)
-        .then((user) => {
-            return res.render('user_profile', {
-                title: 'Profile',
-                userProfile: user
-            });
-        })
-        .catch((err) => {
-            console.log(`Something went wrong in user_profile : ${err}`);
-            return res.redirect('back');
-        });
 }
 
 // render sign up page
 module.exports.signUp = function (req, res) {
     if (req.isAuthenticated()) {
-        return res.redirect('/user/profile');
+        return res.redirect(`/user/profile/${req.user.id}`);
     }
 
     return res.render('user_sign_up', {
@@ -37,7 +32,7 @@ module.exports.signUp = function (req, res) {
 // render sign in page
 module.exports.signIn = function (req, res) {
     if (req.isAuthenticated()) {
-        return res.redirect('/user/profile');
+        return res.redirect(`/user/profile/${req.user.id}`);
     }
 
     return res.render('user_sign_in', {
